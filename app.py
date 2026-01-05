@@ -18,6 +18,10 @@ N8N_WEBHOOKS = {
 def proxy(action):
     """Proxy requests to N8N webhooks"""
     
+    # Handle preflight OPTIONS request
+    if request.method == 'OPTIONS':
+        return '', 200
+    
     if action not in N8N_WEBHOOKS:
         return jsonify({'error': f'Unknown action: {action}'}), 400
     
